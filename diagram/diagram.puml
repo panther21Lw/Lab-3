@@ -1,0 +1,59 @@
+@startuml
+
+package lab_3 {
+
+    interface Shape {
+        +draw(Pane pane, double x, double y)
+        +getDescription() : String
+    }
+
+    abstract class ShapeDecorator implements Shape {
+        -Shape decoratedShape
+        +ShapeDecorator(Shape decoratedShape)
+        +draw(Pane pane, double x, double y)
+        +getDescription() : String
+    }
+
+    class BorderDecorator {
+        -double width
+        -String borderColor
+        +BorderDecorator(Shape decoratedShape, double width, String borderColor)
+        +draw(Pane pane, double x, double y)
+        +getDescription() : String
+    }
+
+    class ColorDecorator {
+        -Color color
+        -String colorName
+        +ColorDecorator(Shape decoratedShape, Color color, String colorName)
+        +draw(Pane pane, double x, double y)
+        +getDescription() : String
+        -toHexString(Color color) : String
+    }
+
+    class ConcreteShapeCircle {
+        +draw(Pane pane, double x, double y)
+        +getDescription() : String
+    }
+
+    class ConcreteShapeSquare {
+        +draw(Pane pane, double x, double y)
+        +getDescription() : String
+    }
+
+    class ShadowDecorator {
+        +ShadowDecorator(Shape decoratedShape)
+        +draw(Pane pane, double x, double y)
+        +getDescription() : String
+    }
+
+    Shape <|.. ConcreteShapeCircle
+    Shape <|.. ConcreteShapeSquare
+    Shape <--o  ShapeDecorator
+    ShapeDecorator <|-- BorderDecorator
+    ShapeDecorator <|-- ColorDecorator
+    ShapeDecorator <|-- ShadowDecorator
+
+}
+
+@enduml
